@@ -1,6 +1,6 @@
 #!/bin/bash
 # ubuntu 14.04 tested
-# authored by zhodj
+# authored by zhodj 1/19/2015
 
 #base
 sudo apt-get install build-essential -y
