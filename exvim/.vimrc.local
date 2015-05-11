@@ -1,0 +1,115 @@
+" This file will be loaded at the end of .vimrc.
+" This file is designed to add your own vim scripts or override the exVim's .vimrc settings.
+
+" let g:airline#extensions#tabline#enabled = 1
+" let g:airline#extensions#tabline#left_sep = ' '
+" let g:airline#extensions#tabline#left_alt_sep = '|'
+
+"Use the arrows to something usefull
+map <right> :bn<cr>
+map <left> :bp<cr>
+
+"Fast saving
+nmap <silent> <leader>ww :w<cr>
+nmap <silent> <leader>wf :w!<cr>
+
+"Fast quiting
+nmap <silent> <leader>qw :confirm wq<cr>
+nmap <silent> <leader>qf :confirm q!<cr>
+nmap <silent> <leader>qq :confirm q<cr>
+nmap <silent> <leader>qa :confirm qa<cr>
+
+"Fast remove highlight search
+nmap <silent> <leader><cr> :noh<cr>
+
+"new features  2015.4.24 zhoudingjun
+" Fast insert "(< into a word
+nnoremap <leader>" viw<esc>a"<esc>hbi"<esc>lel
+
+inoremap jk <esc>
+
+onoremap p i(
+onoremap k i{
+onoremap j i[
+onoremap h i<
+onoremap n i"
+onoremap r /return<cr>
+onoremap in( :<c-u>normal! f(vi(<cr>
+
+let Tlist_Show_One_File = 1
+let Tlist_Exit_OnlyWindow = 1
+let Tlist_Use_Right_Window = 1
+nmap <silent> <leader>tl :Tlist<cr>
+
+"Use the arrows to something usefull
+map <right> :bn<cr>
+map <left> :bp<cr>
+
+"automaticsly wirte back the comments
+set autowrite
+
+"config bufexplorer
+let g:bufExplorerDefaultHelp=0
+let g:bufExplorerShowRelativePath=1
+let g:bufExplorerSortBy='mru'
+
+"config winmanager
+let g:winManagerWindowLayout = "BufExplorer,NERDTree|TagList"
+let g:NERDTree_title="[NERDTree]"
+autocmd BufWinEnter \[Buf\ List\] setl nonumber
+
+nmap <silent> <leader>wm :WMToggle<cr>
+
+" NERDTree setting
+nmap <silent> <leader>tt :NERDTreeToggle<cr>
+
+function! NERDTree_Start()
+    exec 'NERDTree'
+endfunction
+
+function! NERDTree_IsValid()
+    return 1
+endfunction
+
+"switch to current dir
+map <silent> <leader>cd :cd %:p:h<cr>
+
+let g:DoxygenToolkit_briefTag_funcName = "yes"
+
+" for C++ style, change the '@' to '\'
+let g:DoxygenToolkit_commentType = "C++"
+let g:DoxygenToolkit_briefTag_pre = "\\brief "
+let g:DoxygenToolkit_templateParamTag_pre = "\\tparam "
+let g:DoxygenToolkit_paramTag_pre = "\\param "
+let g:DoxygenToolkit_returnTag = "\\return "
+let g:DoxygenToolkit_throwTag_pre = "\\throw " " @exception is also valid
+let g:DoxygenToolkit_fileTag = "\\file "
+let g:DoxygenToolkit_dateTag = "\\date "
+let g:DoxygenToolkit_authorTag = "\\author "
+let g:DoxygenToolkit_versionTag = "\\version "
+let g:DoxygenToolkit_blockTag = "\\name "
+let g:DoxygenToolkit_classTag = "\\class "
+let g:DoxygenToolkit_authorName = "cs.zhoudj@gmail.com"
+let g:doxygen_enhanced_color = 1
+"let g:load_doxygen_syntax = 1
+
+"conqueterm
+map <silent> <leader>ctb :ConqueTerm bash<cr>
+
+let g:syntastic_check_on_open = 1
+let g:syntastic_cpp_check_header = 1
+let g:syntastic_cpp_compiler = "/usr/bin/g++"
+let g:syntastic_cpp_compiler_options = "-Wall -Wextra -Wpedantic"
+
+"Map auto complete of (, ", ', [
+inoremap @1 ()<esc>:let leavechar=")"<cr>i
+inoremap @2 []<esc>:let leavechar="]"<cr>i
+inoremap @3 {}<esc>:let leavechar="}"<cr>i
+inoremap @4 {<esc>o}<esc>:let leavechar="}"<cr>O
+inoremap @5 <><esc>:let leavechar=">"<cr>i
+inoremap @q ''<esc>:let leavechar="'"<cr>i
+inoremap @w ""<esc>:let leavechar='"'<cr>i
+inoremap @e //<esc>:let leavechar='/'<cr>i
+
+"Remove the Windows ^M
+noremap <Leader>dm mzHmx:%s/<C-V><cr>//ge<cr>'xzt'z:delm x z<cr>
