@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import os
-import Image,ImageFont, ImageDraw
+from PIL import Image,ImageFont, ImageDraw
 import random
 
 text = ["1","2","3","4","5","6","7","8","9","0"]
