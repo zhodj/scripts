@@ -13,7 +13,7 @@ set exculude_path ""
 
 spawn bash
 expect "$"
-send "rsync  -a --delete --rsh=\"ssh -p $port\" $src_path $name@$host:$des_path --exclude .svn --exclude-from=$exculude_path\r"
+send "rsync  -aH --delete --rsh=\"ssh -p $port\" $src_path $name@$host:$des_path --exclude .svn --exclude-from=$exculude_path\r"
 expect {
     "Password:" {
         send "$password\n"
