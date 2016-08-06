@@ -11,8 +11,7 @@ def get_filename(filename):
     s = v[0].split("_")
     return int(s[0])
     
-def read_source_files(pathname):
-    image_numbers = 60000;
+def read_source_files(pathname, out_image, out_label, image_numbers):
     len_image = 16 + 28 * 28 * image_numbers
     len_label = 16 + 1 * image_numbers
     s_image = create_string_buffer(len_image)
@@ -56,17 +55,29 @@ def read_source_files(pathname):
             pack_into('B', s_label, l_label, label)
             l_label = l_label + 1
 
-    outputfilename = 'train-images-idx3-ubyte'
-    with open(outputfilename, 'wb') as output:
+    with open(out_image, 'wb') as output:
         output.write(s_image)
     output.close()
 
-    outputfilename = 'train-labels-idx1-ubyte'
-    with open(outputfilename, 'wb') as output:
+    with open(out_label, 'wb') as output:
         output.write(s_label)
     output.close()
 
 
 if __name__ == '__main__':
-    pathname = "/home/zhoudingjun/workstation/scripts/python/train_numbers/";
-    read_source_files(pathname) 
+    model = sys.argv[1]
+    pathname = "/home/zhoudingjun/workstation/scripts/python/tensorflow/"
+    out_image = ""
+    out_label = ""
+    if model == "train":
+        pathname = pathname + "train_numbers/"
+        out_image = 'train-images-idx3-ubyte'
+        out_label = 'train-labels-idx1-ubyte'
+        image_numbers = 60000
+    elif model == "test":
+        pathname = pathname + "test_numbers/"
+        out_image = 'test-images-idx3-ubyte'
+        out_label = 'test-labels-idx1-ubyte'
+        image_numbers = 10000
+
+    read_source_files(pathname, out_image, out_label, image_numbers) 
