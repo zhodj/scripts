@@ -24,11 +24,11 @@ def Run(length, path_name, fonts_path):
         
 
 if __name__ == '__main__':
-    if len(sys.argv) != 2:
+    if len(sys.argv) != 3:
         print "need two args!"
         sys.exit(0)
     model = sys.argv[1]
-    fonts_path = "msyh.ttf"
+    fonts_path = sys.argv[2]
     if model == "test":
         length = 10000
         path_name = "test_numbers"

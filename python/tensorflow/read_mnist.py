@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 import gzip
+import sys
 
 import numpy
 from tensorflow.python.platform import gfile
@@ -50,5 +51,7 @@ def extract_labels(filename, one_hot=False, num_classes=10):
             return dense_to_one_hot(labels, num_classes)
         return labels
 
-extract_images("/home/zhoudingjun/workstation/x-project/src/mnist/train-images-idx3-ubyte.gz")
-extract_labels("/home/zhoudingjun/workstation/x-project/src/mnist/train-labels-idx1-ubyte.gz")
+path1 = sys.argv[1]
+path2 = sys.argv[2]
+extract_images(path1)
+extract_labels(path2)

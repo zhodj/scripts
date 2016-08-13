@@ -5,6 +5,7 @@ import cv2
 import numpy as np
 from struct import *
 from ctypes import create_string_buffer
+import gzip
 
 def get_filename(filename):
     v = filename.split("\.")
@@ -57,14 +58,25 @@ def read_source_files(pathname, out_image, out_label, image_numbers):
 
     with open(out_image, 'wb') as output:
         output.write(s_image)
-    output.close()
+    gzip_file(out_image)
+    os.remove(out_image)
+    
 
     with open(out_label, 'wb') as output:
         output.write(s_label)
-    output.close()
+    gzip_file(out_label)
+    os.remove(out_label)
+
+def gzip_file(filename):
+    with open(filename, 'rb') as plain_file:
+        with gzip.open(filename + ".gz", 'wb') as zip_file:
+            zip_file.writelines(plain_file)
 
 
 if __name__ == '__main__':
+    if len(sys.argv) != 2:
+        print "need tow args!"
+        sys.exit(-1)
     model = sys.argv[1]
     pathname = "/home/zhoudingjun/workstation/scripts/python/tensorflow/"
     out_image = ""
@@ -76,8 +88,8 @@ if __name__ == '__main__':
         image_numbers = 60000
     elif model == "test":
         pathname = pathname + "test_numbers/"
-        out_image = 'test-images-idx3-ubyte'
-        out_label = 'test-labels-idx1-ubyte'
+        out_image = 't10k-images-idx3-ubyte'
+        out_label = 't10k-labels-idx1-ubyte'
         image_numbers = 10000
 
     read_source_files(pathname, out_image, out_label, image_numbers) 
